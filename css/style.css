@@ -108,14 +108,14 @@ ol, ul, li {
     width: 100%;
 }
 .icn {
-    background-image: url("/playlytics/images/icons.png");
+    background-image: url("/images/icons.png");
     background-position: 0 0;
     display: block;
     height: 16px;
     width: 16px; 
 }
 .sprite-frame .icn {
-    background-image: url("/playlytics/images/icons-btn.png");
+    background-image: url("/images/icons-btn.png");
 }
 .container {
     min-height: 200px;
@@ -287,11 +287,11 @@ footer {
 
 @media all and (-webkit-min-device-pixel-ratio: 1.5) {
     .icn {
-        background-image: url("/playlytics/images/icons2x.png");
+        background-image: url("/images/icons2x.png");
         background-size: 16px 96px;
     }
     .sprite-frame .icn {
-        background-image: url("/playlytics/images/icons-btn2x.png");
+        background-image: url("/images/icons-btn2x.png");
         background-size: 16px 32px;
     }
     .remove-icn {
@@ -357,7 +357,7 @@ footer {
         display: block;
         float: none;
         padding: 0.1rem 1rem;
-        width: 100%
+        width: 100%;
     }
     .factor .td {
         padding: 15px 0 0;
