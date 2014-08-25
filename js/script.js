@@ -61,7 +61,7 @@ if (window.jQuery) {
         var playlistObj = {};
         
         $.each($('#playlist > div'), function(){
-            $that = $(this);
+            var $that = $(this);
             var trackObj = {};
             trackObj['artists'] = $that.find('.artists').html();
             trackObj['song'] = $that.find('.song').html();
@@ -110,8 +110,8 @@ if (window.jQuery) {
     });
     
     $(document).on('click', '.ui-autocomplete > li', function(e) {
-        $( '#q' ).blur();
-        $( '#search-form' ).submit();
+        $('#q').blur();
+        $('#search-form').submit();
         e.preventDefault();
         e.stopPropagation();
     });
@@ -161,7 +161,7 @@ if (window.jQuery) {
             
         if ($input.val().length > 0) {
             $nodata.hide();
-            $( '#q' ).blur();
+            $input.blur();
             search_value = $input.val();
             if(!$data.is(':visible')) $('.see').click();
             $data.html('');
@@ -176,9 +176,7 @@ if (window.jQuery) {
     $(window).scroll(function() {
         if ( $(window).scrollTop() == $(document).height() - $(window).height() ) {
             if ( $('> div', data).length > 0 && $data.is(':visible') && $data.is(':visible') && current_page < 9 && current_page <= total_pages ) {
-                console.log(current_page);
                 current_page++;
-                console.log(current_page);
                 getData(search_value, current_page, false, handleData);
             }
         }
@@ -306,11 +304,11 @@ function calcCoolnessFactor(e) {
 }
 
 function supportsLocalStorage() {
-  try {
-    return 'localStorage' in window && window['localStorage'] !== null;
-  } catch (e) {
-    return false;
-  }
+    try {
+        return 'localStorage' in window && window['localStorage'] !== null;
+    } catch (e) {
+        return false;
+    }
 }
 
 function isJson(val) {
