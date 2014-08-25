@@ -374,12 +374,6 @@ footer {
     html { font-size: 112%; }  
 }
 
-@media (min-width: 1025px) {
-    .row.tr:hover {
-       /* background: white !important;*/
-    }  
-}
-
 @media (min-width: 1200px) {
     html { font-size: 120%; }
 }
