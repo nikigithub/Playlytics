@@ -1,3 +1,6 @@
+Playlytics
+=======
+
 Calculate the coolness factor ratio for your playlist.
 
 
