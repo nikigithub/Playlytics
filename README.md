@@ -11,6 +11,7 @@ Features
 *       Total Duration of the playlist.
 *       Ability to calculate and display the Coolness Factor of that playlyst.
 *       Persist playlist to Local Storage using HTML5 LocalStorage functionality.
+*       Responsive Design.
 
 Demo
 --------
