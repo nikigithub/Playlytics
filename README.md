@@ -1,8 +1,6 @@
 Playlytics
 =======
-
-Calculate the coolness factor ratio for your playlist.
-
+A JavaScript, HTML5, CSS3 web application that calculate the coolness factor ratio for your Spotify's playlist.
 
 Features
 --------
