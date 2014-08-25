@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Playlytics</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="http://fonts.googleapis.com/css?family=Roboto:400,700,300" rel="stylesheet" type="text/css" >
+        <link type="text/css" rel="stylesheet" media="all" href="/playlytics/css/style.css">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript" async></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js" type="text/javascript" async></script>
+    </head>
+    <body>
+        <header>
+            <h1>Playlytics</h1>
+            <h2>Calculate the coolness factor ratio for your playlist.</h2>
+        </header>
+        <div class="content-wrap">
+            <div class="search">
+                <form action="/search-results/" id="search-form">
+                    <div class="searchbox">
+                        <span class="search-icn icn"></span>
+                        <input autocomplete="off" type="search" value="" class="search-field" name="q" id="q" placeholder="Search for a song..." required />
+                    </div>
+                </form>
+            </div>
+            <div class="th row">
+                <div class="td artist">Artist</div>
+                <div class="td song">Song</div>
+                <div class="td album">Album</div>
+                <div class="td duration">Duration</div>
+                <div class="td popularity">Popularity</div>
+            </div>
+            <div class="container">
+                <div class="loading">Searching...</div>
+                <div id="nodata" class="row">Sorry, I couldn't find that song! :(</div>
+                <div id="data"></div>
+                <div id="playlist"></div>
+            </div>
+        </div>
+        <footer>
+            <div class="factor">
+                <div class="footer">
+                    <div class="row">
+                        <div class="td duration">
+                            <div class="row-cell">
+                                <div id="duration" class="cell"></div>
+                                <div class="fix cell">Playlist duration</div>
+                            </div>
+                        </div>
+                        <div class="td coolness">
+                            <div class="row-cell">
+                                <div id="factor" class="cell"></div>
+                                <div class="fix cell">Coolness factor</div>
+                            </div>
+                        </div>
+                        <div class="td see">
+                            <div class="sprite-div">
+                                <div class="sprite-frame small">
+                                    <span class="playlist-icn icn icon-center"></span>
+                                </div>
+                                <div class="sprite-text fix">See playlist</div>
+                            </div>
+                        </div>
+                        <div class="td save">
+                            <div class="sprite-div">
+                                <div class="sprite-frame small">
+                                    <span class="splaylist-icn icn icon-center"></span>
+                                </div>
+                                <div class="sprite-text fix">Save playlist</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="about">
+                <p>Playlytics is powered by <a href="https://developer.spotify.com/technologies/metadata-api/search/" target="_blank" class="fix">Spotify API</a> and developed by <a href="http://nickybutter.com" target="_blank" class="fix">Nikita Maslennikov</a>.</p>
+            </div>
+        </footer>
+        <script src="/playlytics/js/script.js" type="text/javascript"></script>
+    </body>
+</html>
