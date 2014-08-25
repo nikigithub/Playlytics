@@ -236,7 +236,6 @@ function handleData(data) {
         var arr = {}, collection = '';
         for ( var i=0; i < limit; i++ ) {
             if (data.tracks[i] !== undefined) {
-                var artists_list = ''; 
                 arr[data.tracks[i].album['name']] = data.tracks[i];    
             }
             
