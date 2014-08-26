@@ -62,6 +62,7 @@ ol, ul, li {
     font-size: 120%;
     font-weight: 300;
     width: 556px !important;
+    z-index: 1;
 }
 .ui-autocomplete li {
     border-bottom: 1px solid #737373;
@@ -411,6 +412,9 @@ footer {
     }
     .factor .td.see, .factor .td.save, .factor .td.coolness {
         width: 20%;
+    }
+    .save.warning {
+        background-color: #fefdeb;
     }
 }
 
