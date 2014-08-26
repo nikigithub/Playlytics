@@ -1,9 +1,8 @@
 if (window.jQuery) {
     
     $(function() {
-        var $window    = $(window),
+        var $window = $(window),
         offset = $( '.container' ).offset();
-        
         $window.scroll(function() {
             if (offset) {
                 if ($window.scrollTop() > offset.top) {
@@ -15,7 +14,9 @@ if (window.jQuery) {
         });
     });
     
-    var $data = $('#data'), $playlist = $('#playlist'), $nodata = $('#nodata');
+    var $data = $('#data'),
+    $playlist = $('#playlist'),
+    $nodata = $('#nodata');
     
     $(window).bind('load', function() {
         isMobile = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini)/).test(navigator.userAgent);
@@ -57,18 +58,26 @@ if (window.jQuery) {
     });
 
     $(document).on('click', '.save', function(e) {
-        var playlist = [];
-        var playlistObj = {};
+        var playlist = [],
+        playlistObj = {};
         
         $.each($('#playlist > div'), function(){
-            var $that = $(this);
-            var trackObj = {};
+            var $that = $(this),
+            trackObj = {},
+            tags = '',
+            $inputTags = $that.find('.a_tags');
+            
+            if ($inputTags.val() !== undefined && $inputTags.val().length > 0) {
+                var toObj = $inputTags.val().replace(/\s+/g, ''),
+                tags = toObj.split(',')
+            }
+            
             trackObj['artists'] = $that.find('.artists').html();
             trackObj['song'] = $that.find('.song').html();
             trackObj['album'] = $that.find('.album').html();
             trackObj['duration'] = $that.attr('data-dur');
             trackObj['popularity'] = $that.find('.popularity').html();
-            trackObj['tags'] = 'hip-hop';
+            trackObj['tags'] = $.isArray(tags) ? tags : '';
             playlist.push(trackObj);
         });
         
@@ -81,8 +90,8 @@ if (window.jQuery) {
     });
     
     $(document).on('click', '.remove', function(e) {
-        $(this).parent().addClass('removing').delay(400).queue(function() {
-            $(this).remove();
+        $(this).closest('.row').addClass('removing').delay(400).queue(function() {
+            $(this).closest('.row').remove();
             updateList( $playlist );
             if ($('#playlist > div').length < 1) {
                 if ($('.see').hasClass('active')) $('.see').click();
@@ -96,10 +105,10 @@ if (window.jQuery) {
     });
     
     $(document).on('click', '.add', function(e) {
-        $(this).parent().addClass('adding').delay(400).queue(function() {
-            $(this).removeClass('adding');
+        $(this).closest('.row').addClass('adding').delay(400).queue(function() {
+            $(this).closest('.row').removeClass('adding');
             var cloned = $(this).clone();
-            cloned.find('.clearfix').removeClass('add').addClass('remove').html('<span class="remove-icn icn"></span>');
+            cloned.find('.clearfix').html('<div class="tags notags"><span class="tag-icn icn"></span><input type="text" value="" class="a_tags" name="tags" placeholder="Tags: Weekend, house, rock, etc."></div><div class="remove"><span class="remove-icn icn"></span></div>');
             cloned.appendTo('#playlist');
             updateList( $playlist );
             if ( !$( '.factor' ).is(':visible') ) $( '.factor' ).show();
@@ -107,6 +116,35 @@ if (window.jQuery) {
         });
         e.preventDefault();
         e.stopPropagation();
+    });
+    
+    $(document).on('click', '.tags > .icn', function(e) {
+        $(this).closest('.clearfix').toggleClass('on');
+        e.preventDefault();
+        e.stopPropagation();
+    });
+    
+    $(document).on('keyup', '.a_tags', function(e) {
+        if (e.keyCode == 13) {
+            var $input = $(this), val = $(this).val();
+            
+            if (val.length > 0) {
+                $input.parent().removeClass('notags');
+                var toObj = val.replace(/\s+/g, ''),
+                tags = toObj.split(','),
+                toVal = '';
+                
+                for (var i = 0; i < tags.length; ++i) {
+                    toVal += i > 0 ? ', ' + tags[i]  : tags[i]; 
+                }
+                $input.val(toVal);
+            } else {
+                if (!$input.parent().hasClass('notags')) $input.parent().addClass('notags');
+            }
+            
+            $input.blur();
+            $(this).closest('.clearfix').toggleClass('on');
+        }
     });
     
     $(document).on('click', '.ui-autocomplete > li', function(e) {
@@ -117,8 +155,7 @@ if (window.jQuery) {
     });
     
     $('#q').bind('blur', function(){ $(this).parent().removeClass('focused'); });
-    $('#q').bind('focus', function(){ $(this).parent().addClass('focused'); });
-    
+    $('#q').bind('focus', function(){ $(this).parent().addClass('focused'); });    
     
     $('#q').autocomplete({
         minLength: 3,
@@ -200,6 +237,16 @@ Number.prototype.toHHMM = function () {
     return time;
 }
 
+Array.prototype.arrStr = function () {
+    var str = '';
+    var arr = this;
+    if ($.isArray(arr)) {
+        for (var i = 0; i < arr.length; ++i)
+        str += i > 0 ? ', ' + arr[i]  : arr[i];
+    }
+    return str;
+}
+
 function doSortable(e) {
     if (e.length > 0) {
         e.sortable({
@@ -248,7 +295,7 @@ function handleData(data) {
         $.each(data.tracks, function() {
             var duration, artists = '', duration = this.length.toMMSS();
             $.each(this.artists, function(idx) { artists += idx > 0 ? ', ' + this.name : this.name; });
-            collection += '<div class="row tr" data-dur="' + this.length + '" data-pop="' + this.popularity + '"><div class="td artists">' + artists + '</div><div class="td song">' + this.name + '</div><div class="td album">' + this.album['name'] + '</div><div class="td duration">' + duration + '</div><div class="td popularity">' + this.popularity + '</div><div alt="Add to playlist" class="clearfix add"><span class="add-icn icn"></span></div></div>';
+            collection += '<div class="row tr" data-dur="' + this.length + '" data-pop="' + this.popularity + '"><div class="td artists">' + artists + '</div><div class="td song">' + this.name + '</div><div class="td album">' + this.album['name'] + '</div><div class="td duration">' + duration + '</div><div class="td popularity">' + this.popularity + '</div><div class="clearfix"><div class="add"><span class="add-icn icn"></span></div></div></div>';
         });
         $data.html( collection );
     } else {
@@ -260,7 +307,7 @@ function populateList(obj) {
     if (obj == null || obj.length === 0) return false;
     var collection = '';
     $.each(obj, function() {
-        collection += '<div class="row tr" data-dur="' + this.duration + '" data-pop="' + this.popularity + '"><div class="td artists">' + this.artists + '</div><div class="td song">' + this.song + '</div><div class="td album">' + this.album + '</div><div class="td duration">' + parseFloat(this.duration).toMMSS() + '</div><div class="td popularity">' + this.popularity + '</div><div class="clearfix remove"><span class="remove-icn icn"></span></div></div>';
+        collection += '<div class="row tr" data-dur="' + this.duration + '" data-pop="' + this.popularity + '"><div class="td artists">' + this.artists + '</div><div class="td song">' + this.song + '</div><div class="td album">' + this.album + '</div><div class="td duration">' + parseFloat(this.duration).toMMSS() + '</div><div class="td popularity">' + this.popularity + '</div><div class="clearfix"><div class="tags' + ($.isArray(this.tags) ? '' : ' notags') + '"><span class="tag-icn icn"></span><input type="text" placeholder="Tags: Weekend, house, rock, etc." name="tags" class="a_tags" value="' + ($.isArray(this.tags) ? this['tags'].arrStr() : '') + '" /></div><div class="remove"><span class="remove-icn icn"></span></div></div></div>';
     });
     if (collection.length > 0) {
         return collection;
@@ -274,7 +321,7 @@ function updateList(e) {
         duration = calcListDuration(e);
         coolness = calcCoolnessFactor(e);
         if (duration) $( '#duration' ).html(duration.toHHMM());
-        if (coolness) $( '#factor' ).html(coolness);
+        $( '#factor' ).html(coolness === false ? 0 : coolness);
     }
 }
 

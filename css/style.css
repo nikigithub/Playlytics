@@ -173,7 +173,7 @@ ol, ul, li {
     display: none;
     padding: 50px 0;
 }
-#playlist, .ui-autocomplete, .ui-helper-hidden-accessible {
+#playlist, .ui-autocomplete, .ui-helper-hidden-accessible, .a_tags {
     display: none;
 }
 #nodata, .loading {
@@ -203,6 +203,7 @@ footer {
     height: 81px;
     position: fixed;
     width: 100%;
+    z-index: 2;
 }
 .factor {
     display: none;
@@ -224,10 +225,17 @@ footer {
 .clearfix {
     cursor: pointer;
     display: none;
-    padding: 10px;
     position: absolute;
     right: 10px;
     top: 14px;
+    z-index: 1;
+}
+.clearfix.on {
+    display: block !important;
+}
+.clearfix > div {
+    float: left;
+    padding: 10px;
 }
 .mobile .clearfix {
     background-color: #FFF;
@@ -256,6 +264,23 @@ footer {
     cursor: default;
     opacity: 0.4;
 }
+.tags {
+    position: relative;
+}
+.a_tags {
+    border: 1px solid #e3e3e3;
+    border-radius: 2px 2px 2px 2px;
+    font-size: 70%;
+    line-height: normal;
+    padding: 10px 5px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: all 0.3s ease-in-out 0s;
+}
+.on .a_tags {
+    display: block
+}
 .sprite-frame {
     height: 24px;
     padding: 3px;
@@ -273,10 +298,19 @@ footer {
     background-position: 0 48px;
 }
 .remove-icn {
-    background-position: 1px 0;
+    background-position: 1px 96px
 }
 .removing .remove-icn {
     background-position: 1px 80px;
+}
+.tag-icn {
+    background-position: 0px 112px
+}
+.notags .tag-icn {
+    opacity: 0.7;
+}
+.removing .tag-icn {
+    background-position: 0 0;
 }
 .search-icn {
     background-position: 0 32px;
@@ -288,14 +322,14 @@ footer {
 @media all and (-webkit-min-device-pixel-ratio: 1.5) {
     .icn {
         background-image: url("/images/icons2x.png");
-        background-size: 16px 96px;
+        background-size: 16px 128px;
     }
     .sprite-frame .icn {
         background-image: url("/images/icons-btn2x.png");
         background-size: 16px 32px;
     }
     .remove-icn {
-        background-position: 0 48px;
+        background-position: 0px 48px;
     }
     .removing .remove-icn {
         background-position: 0 64px;
@@ -305,6 +339,12 @@ footer {
     }
     .adding .add-icn {
         background-position: 0 96px;
+    }
+    .tag-icn {
+        background-position: 0px 112px
+    }
+    .removing .tag-icn {
+        background-position: 0 128px;
     }
 }
 
