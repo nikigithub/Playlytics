@@ -222,6 +222,10 @@ footer {
 .fix {
     font-weight: 400;
 }
+.warning .sprite-text:after {
+    color: #f04c40;
+    content: " *";
+}
 .clearfix {
     cursor: pointer;
     display: none;

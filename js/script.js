@@ -61,7 +61,7 @@ if (window.jQuery) {
         var playlist = [],
         playlistObj = {};
         
-        $.each($('#playlist > div'), function(){
+        $.each($('#playlist > div'), function() {
             var $that = $(this),
             trackObj = {},
             tags = '',
@@ -85,6 +85,7 @@ if (window.jQuery) {
             playlistObj[i] = playlist[i];
             
         localStorage['playlistObj'] = JSON.stringify(playlistObj);
+        $(this).removeClass('warning');
         e.preventDefault();
         e.stopPropagation();
     });
@@ -100,8 +101,13 @@ if (window.jQuery) {
             }
             $(this).dequeue();
         });
+        $('.save').trigger('madeChanges');
         e.preventDefault();
         e.stopPropagation();
+    });
+    
+    $('.save').on('madeChanges',function(){
+        if ( !$(this).hasClass('warning') ) $(this).addClass('warning');
     });
     
     $(document).on('click', '.add', function(e) {
@@ -114,6 +120,7 @@ if (window.jQuery) {
             if ( !$( '.factor' ).is(':visible') ) $( '.factor' ).show();
             $(this).dequeue();
         });
+        $('.save').trigger('madeChanges');
         e.preventDefault();
         e.stopPropagation();
     });
@@ -143,6 +150,7 @@ if (window.jQuery) {
             }
             
             $input.blur();
+            $('.save').trigger('madeChanges');
             $(this).closest('.clearfix').toggleClass('on');
         }
     });
@@ -251,7 +259,14 @@ function doSortable(e) {
     if (e.length > 0) {
         e.sortable({
             items: '.tr',
-            placeholder: "tr tr-placeholder"
+            placeholder: "tr tr-placeholder",
+            start: function(event, ui) {
+                ui.item.data('start_weight', ui.item.index());
+            },
+            stop: function(event, ui) {
+                var start_weight = ui.item.data('start_weight');
+                if (start_weight != ui.item.index()) $('.save').trigger('madeChanges');
+            }
         });
     }
 }
