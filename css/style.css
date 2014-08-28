@@ -369,7 +369,7 @@ footer {
     .row.tr .td.popularity { padding-bottom: 1rem; }
     .row.tr .td.duration:before { content: "Duration: "}
     .row.tr .td.popularity, .row.tr .td.album { padding-bottom:1.5rem; }
-    .row.tr .td.popularity:before { content: "Popularity key: " }
+    .row.tr .td.popularity:before { content: "Popularity: " }
     
     .search {
         width: auto;
